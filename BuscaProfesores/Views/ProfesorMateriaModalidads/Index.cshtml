@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BuscaProfesores.Models.ProfesorMateriaModalidad>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Mis Materias</h2>
+
+<p>
+    @Html.ActionLink("Crear Nueva", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            Materia
+        </th>
+        <th>
+            Tipo de modalidad
+        </th>
+        <th>
+            Precio
+        </th>
+
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Materias.NombreMateria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modalidades.TiposDeModalidad)
+        </td>
+        <td>
+           $ @Html.DisplayFor(modelItem => item.Precio)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<BuscaProfesores.Models.ContenedorProfesorMateriaModalidad>
+
+@{
+    ViewBag.Title = "buscarMateria";
+}
+
+<h2>PROFESORES DE @ViewBag.materia</h2>
+
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                Profesor
+            </th>
+            <th>
+                Direccion
+            </th>
+            <th>
+                Telefono
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Tipos de modalidad
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)   @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @foreach (var x in item.ContenedorDeModalidades)
+                    {
+                        <li>
+                            @x.Modalidad:    $ @x.Precion
+                        </li>
+                    }
+                </td>
+
+
+            </tr>
+        }
+
+    </table>
+
+    <div id="map" style="width:100%;height:400px"></div>
+
+    @section Scripts{
+
+        <script>
+    var map = new mqgl.Map('map', 'RZ1Onno7YBcJlgZaDIhYqKpe7y2HZdbg');
+
+    var direcciones = [];
+    @foreach (var d in Model)
+    {
+        @:direcciones.push("San miguel de tucuman,@d.Direccion");
+    }
+            
+    map.load(() => {
+        map.batchGeocode(direcciones)
+            .then(points => points.forEach(
+                (point, key) => map.icons.marker.add(point)
+            ))
+            .then(() => map.fitBounds());
+    });
+
+        </script>
+    }
+}
+else
+{
+    <h1 class="text-danger">Lo lamentamos no hay profesores para esta materia!</h1>
+}
+
+
+
+

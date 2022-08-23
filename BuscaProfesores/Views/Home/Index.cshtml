@@ -1,0 +1,40 @@
+﻿@model List<BuscaProfesores.Models.Materia>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+    <h1>En que materia necesitas ayuda?</h1>
+    <div class="row">
+        <div class="col-sm-5">
+
+
+            <ul class="list-group text-center">
+                @foreach (var item in Model)
+            {
+                <a href="@Url.Action("buscarMateria","Home", new {materiaIngresada = item.NombreMateria })" class="list-group-item">@item.NombreMateria</a>
+        }
+            </ul>
+        </div>
+        <div class="col-sm-7">
+            
+                        <h2>Aplicaciones distribuidas - 2018</h2>
+                        <p>
+                            Comision: 4K1
+                            <br />  
+                            Profesor: José de la Clruz
+                            <br />  
+                            Alumnos: 
+                            <ul>
+                                <li>Molina Majek Hernan Nicolas - Legajo:35492</li>
+                                <li>Medina Flavia Alejandra - Legajo:35237</li>
+                                <li>Cansino Delgado Francisco - Legajo:</li>
+                            </ul>
+                        </p>
+                        
+        </div>
+    </div>
+
+
+
